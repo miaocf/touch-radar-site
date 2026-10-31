@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "version": "20261031T022303Z-2c3406d9",
+  "builtAt": "2026-10-31T02:23:04+00:00",
+  "dataCollectedAt": "2026-10-29T17:54:29+00:00",
+  "htmlSha256": "21814a078651ec3df273b05d19389bd2d6b0d77cb3aa3b8edd368bc56b2fcf8a",
+  "snapshotSha256": "d91626be76e89ea30cc43684b7e1db181194217d44e95f8757f3648c5db3aca4",
+  "intelligenceCount": 48,
+  "publicFiles": [
+    "index.html",
+    "release.json",
+    "CNAME",
+    ".nojekyll"
+  ]
+}
