@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "version": "20261101T190240Z-976d2b62",
-  "builtAt": "2026-11-01T19:02:41+00:00",
+  "version": "20261101T191358Z-acd4a609",
+  "builtAt": "2026-11-01T19:13:59+00:00",
   "dataCollectedAt": "2026-10-29T17:54:29+00:00",
-  "htmlSha256": "813087d24b0390b53107440dd2ef32d0b3792162cdef3bddbee0b9c20681411d",
-  "snapshotSha256": "6f36c29df5e8499f3e37965725305a4e8aa9773e0df664729132fa103abb5ae3",
+  "htmlSha256": "3bf4ca192d783ea3b376d133799566d05ebc768c8d6e858536b66eadaa7862ac",
+  "snapshotSha256": "4f9d1b76d6179f2b966a958fc53f4e7b3b7d476c60c25613fa624ef936724351",
   "intelligenceCount": 48,
   "publicFiles": [
     "index.html",
