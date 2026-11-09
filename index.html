@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#ffffff">
-<meta name="data-app-snapshot-sha256" content="c3d94f0a06092caa8354f766bb4d962f5f4cbbe2b64a494db239e4b31dd9786a">
+<meta name="data-app-snapshot-sha256" content="fd9ac066e5b3d8d1f13e35e110298983a58d8387d9ada4e9e3eed51ca33f8985">
 <meta name="data-app-chart-delivery" content="bundled">
 <meta name="data-app-runtime-sha256" content="18896172786ae9fbbfed81fdc93754ee0d68d5a8502c99ee0c27066d5f9edf51">
 <meta name="data-app-bootstrap" content="deferred-content-v1">
@@ -1916,6 +1916,65 @@ main.page[data-data-app-content="dashboard"]{--data-app-content-width:var(--data
           }
         ]
       }
+    },
+    "touchVoices": {
+      "id": "touchVoices",
+      "name": "触控差评原声",
+      "source": {
+        "type": "upload",
+        "name": "知乎和微博公开用户反馈摘录",
+        "caveats": [
+          "按触控负面体验定向选取，独立展示，不计入口碑统计。",
+          "引用用户原话的相关片段。知乎评论链接指向评论所在回答。"
+        ]
+      },
+      "rows": [
+        {
+          "id": "mate-70-air-zhihu",
+          "date": "2026-10-18",
+          "platform": "知乎",
+          "kind": "评论",
+          "model": "Mate 70 Air",
+          "text": "触控跟手是个问题，我的mate70air也不跟手。另外外放真的不行，所以在犹豫要不要换。",
+          "url": "https://www.zhihu.com/question/2081369726706521887/answer/2092282319977571189"
+        },
+        {
+          "id": "pura-80-pro-plus-zhihu",
+          "date": "2026-09-29",
+          "platform": "知乎",
+          "kind": "回答",
+          "model": "Pura 80 Pro+",
+          "text": "7上面的app冷启动打开时间明显要比6.1长，点触反馈有明显的迟滞感",
+          "url": "https://www.zhihu.com/question/2069216949293291316/answer/2088193875013789237"
+        },
+        {
+          "id": "pura-x-view-zhihu-back",
+          "date": "2026-09-22",
+          "platform": "知乎",
+          "kind": "回答",
+          "model": "Pura X View",
+          "text": "慢了力度小了会变成点击，按长了会变成侧边栏，更别提b站啥的容易误触没反应了",
+          "url": "https://www.zhihu.com/question/2082784603719446856/answer/2085720784203412580"
+        },
+        {
+          "id": "pura-x-view-weibo-case",
+          "date": "2026-09-11",
+          "platform": "微博",
+          "kind": "帖子",
+          "model": "Pura X View",
+          "text": "我得出的结论，手势返回的成功率：裸机>只贴玻璃膜>贴玻璃膜+机甲壳。",
+          "url": "https://weibo.com/2/detail/5342097398829264"
+        },
+        {
+          "id": "pura-x-view-weibo-film",
+          "date": "2026-09-07",
+          "platform": "微博",
+          "kind": "帖子",
+          "model": "Pura X View",
+          "text": "pura x view贴了膜滑动返回就断触",
+          "url": "https://weibo.com/2/detail/5340564859127168"
+        }
+      ]
     }
   },
   "surface": "dashboard",
@@ -1992,13 +2051,13 @@ main.page[data-data-app-content="dashboard"]{--data-app-content-width:var(--data
   },
   "deployment": {
     "domain": "www.miaocf.cn",
-    "checkedAt": "2026-11-09T17:22:33+00:00",
+    "checkedAt": "2026-11-09T17:40:49+00:00",
     "httpStatus": "HTTP 200，可访问",
-    "httpsStatus": "最近一次 HTTPS 核验通过 · 版本 20261109T172118Z-c5a02667",
+    "httpsStatus": "最近一次 HTTPS 核验通过 · 版本 20261109T173937Z-92d8fdae",
     "repository": "miaocf/touch-radar-site"
   },
   "release": {
-    "version": "20261109T173937Z-92d8fdae"
+    "version": "20261109T183409Z-6fd34fb3"
   }
 }
 </script>
@@ -2488,6 +2547,7 @@ function DashboardContent(){
  const [personal,setPersonal]=react.useState(()=>{try{return {...readPersonal(localStorage),error:''}}catch(e){return {posts:[],saved:[],archive:[],error:'个人数据读取失败，已暂停写入以保护原记录：'+e.message}}});
  const {posts,saved,archive}=personal;
  const publicRows=snapshot.queries.social.rows;
+ const touchVoices=snapshot.queries.touchVoices?.rows??[];
  const publishedPosts=react.useMemo(()=>validatePosts(publicRows),[publicRows]);
  const publicIds=new Set(publishedPosts.map(row=>row.id));
  const combinedPosts=[...publishedPosts,...posts.filter(row=>!publicIds.has(row.id))];
@@ -2531,7 +2591,15 @@ function DashboardContent(){
  , jsxRuntime.jsx(dataApp.SortableItem, { id: "radar:research", label: "触控研究", kind: "custom", children: jsxRuntime.jsx('div', { className: "tr-panel", children: cards(research.slice(0,5),'radar:research','触控研究速览')})})
  ]})]})
  , tab==='华为口碑'&&jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
- jsxRuntime.jsxs('div', { className: "tr-section-intro", children: [jsxRuntime.jsx('h2', { children: "从真实评论，理解使用体验"}), jsxRuntime.jsx('p', { children: "公开样本为 B站单视频历史评论，品牌与情感标注以复核状态为准。品牌可切换对照。好评率 = 好评 ÷（好评 + 差评）；不含中立与待复核，不代表全网口碑。"      })]})
+ touchVoices.length>0&&jsxRuntime.jsxs(dataApp.DataComponent, { variant: "card", id: "radar:touch-voices", title: "触控差评原声", queryId: "touchVoices", sourceRows: touchVoices, displayRows: touchVoices, kind: "custom", children: [
+  jsxRuntime.jsx('p', { className: "tr-muted", children: "从知乎和微博定向收集的负面体验摘录，单独展示，不计入下方口碑统计。"})
+  , jsxRuntime.jsx('div', { 'data-reviewed-rows': true, children: touchVoices.map(voice=>jsxRuntime.jsxs('article', { className: "tr-comment", children: [
+   jsxRuntime.jsxs('div', { className: "tr-meta", children: [jsxRuntime.jsx('span', { children: voice.model}), jsxRuntime.jsxs('span', { children: [voice.platform, " · "  , voice.kind]}), jsxRuntime.jsx('time', { dateTime: voice.date, children: voice.date})]})
+   , jsxRuntime.jsx('blockquote', { children: voice.text})
+   , jsxRuntime.jsxs('a', { href: voice.url, target: "_blank", rel: "noreferrer", children: [voice.kind==='评论'?'打开评论所在回答':'查看原文', " ↗" ]})
+  ]}, voice.id))})
+ ]})
+ , jsxRuntime.jsxs('div', { className: "tr-section-intro", children: [jsxRuntime.jsx('h2', { children: "从真实评论，理解使用体验"}), jsxRuntime.jsx('p', { children: "公开样本为 B站单视频历史评论，品牌与情感标注以复核状态为准。品牌可切换对照。好评率 = 好评 ÷（好评 + 差评）；不含中立与待复核，不代表全网口碑。"      })]})
  , jsxRuntime.jsxs('div', { className: "tr-filter-row", children: [jsxRuntime.jsx(Select, { label: "平台", value: platform, onChange: setPlatform, options: ['全部',...platforms],}), jsxRuntime.jsx(Select, { label: "评价", value: sentiment, onChange: setSentiment, options: ['全部','好评','差评','中立','待复核'],}), jsxRuntime.jsxs('label', { children: ["起始日期 " , jsxRuntime.jsx('input', { type: "date", value: from, onChange: e=>setFrom(e.target.value),})]}), jsxRuntime.jsxs('label', { children: ["结束日期 " , jsxRuntime.jsx('input', { type: "date", value: to, onChange: e=>setTo(e.target.value),})]}), jsxRuntime.jsx('button', { onClick: reset, children: "重置"}), jsxRuntime.jsx('button', { onClick: ()=>download('评论筛选结果.json',scoped), children: "导出筛选结果 ↓" })]})
  , jsxRuntime.jsxs('div', { className: "tr-filter-row", children: [jsxRuntime.jsx(Select, { label: "机型", value: model, onChange: setModel, options: commentOptions('model'),}), jsxRuntime.jsx(Select, { label: "系统版本", value: osVersion, onChange: setOsVersion, options: commentOptions('osVersion'),}), jsxRuntime.jsx(Select, { label: "使用场景", value: scenario, onChange: setScenario, options: commentOptions('scenario'),}), jsxRuntime.jsx(Select, { label: "复核状态", value: reviewStatus, onChange: setReviewStatus, options: ['全部',...reviewStatuses],})]})
  , jsxRuntime.jsx('p', { className: "tr-muted", children: "复核状态由用户维护，与情感标签分开；已复核不代表已验证故障或全网结论。"})
